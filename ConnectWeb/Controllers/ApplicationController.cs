@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ConnectWeb.Models;
+using ConnectWeb.Models.DataModels;
 
 namespace ConnectWeb.Controllers
 {
