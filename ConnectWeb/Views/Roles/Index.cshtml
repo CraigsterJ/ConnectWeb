@@ -1,11 +1,11 @@
-﻿@model IEnumerable<ConnectWeb.Models.DataModels.Application>
+﻿@model IEnumerable<ConnectWeb.Models.DataModels.Role>
 @{
     ViewData["Title"] = "Applications";
 }
-<h2>Applications</h2>
+<h2>Roles for @ViewBag.ApplicationName</h2>
 
 <p>
-    <a asp-controller="Application" asp-action="Create">Create New</a>
+    <a asp-controller="Roles" asp-action="Create" asp-route-appId="@ViewBag.AppId" >Create New</a>
 </p>
 <div class="row">
     <table class="table">   
@@ -33,9 +33,8 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                <a asp-action="Index" asp-route-appId="@item.Id" asp-controller="Roles">Manage Roles</a> |
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-controller="Roles" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Delete" asp-controller="Roles" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
         }

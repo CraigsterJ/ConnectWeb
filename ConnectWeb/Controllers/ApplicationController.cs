@@ -87,43 +87,6 @@ namespace ConnectWeb.Controllers
                 return View();
             }
         }
-        // GET: Application/ManageRoles/5
-        public ActionResult ManageRoles(int id)
-        {
-            if (id == 0)
-            {
-                return NotFound();
-            }
-            var app = _context.Application.FirstOrDefault(s => s.Id == id);
-            if (app == null)
-            {
-                return NotFound();
-            }
-            return View(app);
-        }
-
-        // POST: Application/ManageRoles
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ManageRoles([Bind("Id,Name,Description")] Application application)
-        {
-            try
-            {
-                var app = _context.Application.FirstOrDefault(s => s.Id == application.Id);
-                if (app == null)
-                {
-                    return NotFound();
-                }
-                app.Name = application.Name;
-                app.Description = application.Description;
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
         // GET: Courses/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
