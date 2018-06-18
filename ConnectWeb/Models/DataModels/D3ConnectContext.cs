@@ -17,13 +17,14 @@ namespace ConnectWeb.Models.DataModels
 
         public virtual DbSet<Application> Application { get; set; }
         public virtual DbSet<Role> Role { get; set; }
+        public virtual DbSet<User> User { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=D3Connect;Trusted_Connection=True;");
+                //var conn = Configuration.Get("Data:DefaultConnection:ConnectionString");
+                //optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=D3Connect;Trusted_Connection=True;");
             }
         }
 
@@ -59,6 +60,19 @@ namespace ConnectWeb.Models.DataModels
                     .HasForeignKey(d => d.ApplicationId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Role_Application");
+            });
+
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.Property(e => e.Deleted).HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.FullName).HasMaxLength(250);
+
+                entity.Property(e => e.UserId).HasDefaultValueSql("(newid())");
+
+                entity.Property(e => e.UserName)
+                    .IsRequired()
+                    .HasMaxLength(100);
             });
         }
     }

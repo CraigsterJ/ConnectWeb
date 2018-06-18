@@ -1,0 +1,1 @@
+﻿Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=D3Connect;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -force -OutputDir Models\DataModels
