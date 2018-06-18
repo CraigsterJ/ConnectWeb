@@ -8,7 +8,7 @@
     <a asp-controller="Roles" asp-action="Create" asp-route-appId="@ViewBag.AppId" >Create New</a>
 </p>
 <div class="row">
-    <table class="table">   
+    <table class="table table-bordered table-striped">   
         <tr>
             <th>Id</th>
             <th>Guid</th>
@@ -39,4 +39,7 @@
         </tr>
         }
     </table>
+</div>
+<div>
+    <a asp-action="Index" asp-controller="Application">Back to Applications</a>
 </div>
