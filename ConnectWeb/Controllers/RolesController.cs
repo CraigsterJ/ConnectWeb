@@ -55,9 +55,7 @@ namespace ConnectWeb.Controllers
             if (ModelState.IsValid)
             {
                 role.RoleId = System.Guid.NewGuid();
-                role.ApplicationId = role.ApplicationId;
-                role.Name = role.Name;
-                role.Description = role.Description;
+                role.Deleted = false;
                 _context.Add(role);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index), new { appId = role.ApplicationId });

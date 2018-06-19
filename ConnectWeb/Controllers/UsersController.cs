@@ -8,12 +8,11 @@ using ConnectWeb.Models.DataModels;
 
 namespace ConnectWeb.Controllers
 {
-    public class UserController : Controller
+    public class UsersController : Controller
     {
-        //START HERE!!!!!
         private D3ConnectContext _context;
 
-        public UserController(D3ConnectContext context)
+        public UsersController(D3ConnectContext context)
         {
             _context = context;
         }
@@ -51,15 +50,13 @@ namespace ConnectWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ApplicationId,Name,Description")] User user)
+        public async Task<IActionResult> Create([Bind("ApplicationId,UserName,FullName")] User user)
         {
             if (ModelState.IsValid)
             {
                 user.UserId = System.Guid.NewGuid();
-                user.ApplicationId = user.ApplicationId;
-                user.UserName = user.UserName;
-                user.FullName = user.FullName;
-                _context.Add(User);
+                user.Deleted = false;
+                _context.Add(user);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index), new { appId = user.ApplicationId });
             }
@@ -84,7 +81,7 @@ namespace ConnectWeb.Controllers
         // POST: Users/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("Id,Name,Description")] User user)
+        public async Task<IActionResult> Edit([Bind("Id,UserName,FullName")] User user)
         {
             try
             {
@@ -111,13 +108,13 @@ namespace ConnectWeb.Controllers
                 return NotFound();
             }
 
-            var User = _context.User.SingleOrDefault(s => s.Id == id);
-            if (User == null)
+            var user = _context.User.SingleOrDefault(s => s.Id == id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return View(User);
+            return View(user);
         }
 
         // POST: Courses/Delete/5
@@ -125,14 +122,14 @@ namespace ConnectWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var User = _context.User.SingleOrDefault(s => s.Id == id);
-            if (User == null)
+            var user = _context.User.SingleOrDefault(s => s.Id == id);
+            if (user == null)
             {
                 return NotFound();
             }
-            User.Deleted = true;
+            user.Deleted = true;
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index), new { appId = User.ApplicationId });
+            return RedirectToAction(nameof(Index), new { appId = user.ApplicationId });
         }
     }
 }
