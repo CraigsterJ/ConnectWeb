@@ -36,3 +36,24 @@
 
 
 /*Custom CSS*/
+.bot-fa-icon {
+    font-size: x-large !important;
+    padding: 5px;
+}
+.bot-menu-popup {
+    float: right;
+    padding: 0px !important;
+}
+.bot-menu-popup-list {
+    float: right;
+    padding: 0px !important;
+}
+.bot-menu-popup-a {
+    padding: 0px !important;
+}
+.bot-btn-create-new {
+    margin-right: -10px;
+    margin-bottom: 10px;
+    width: 150px;
+    position: relative;
+}
