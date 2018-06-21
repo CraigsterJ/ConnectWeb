@@ -46,3 +46,36 @@
         }
     </table>
 </div>
+
+<a href="#" class="" data-toggle="modal" data-target="#modalEditApplication" title="Create"><i class="fa fa-file-alt mr-1x"></i>  Test Modal</a>
+<div class="modal fade" id="modalEditApplication">
+    <div class="modal-dialog" id="id_myModal" role="document" style="margin-top: 122px;padding-left: 91px;width:65%;border-radius:0px">
+        <div class="modal-content" style="border-radius: 0px;">
+            <div class="modal-header" style="height: 37px;background-color: #34C4F9;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:white;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title" style="height: 19px;margin-top: -5px;font-size: 16px;color:white;">Edit Application</h3>
+            </div>
+            <div class="modal-body" style="max-height:342px;">
+                @{
+                    //await Html.RenderPartialAsync("_ApplicationEdit");
+                }
+            </div>
+
+            <div class="modal-footer" style="">
+                <input type="button" class="Fbutton-fixed" value="Save" id="saveData" onclick="saveData()" style="margin-top: 31px;" />
+                <input type="button" class="Fbutton-fixed" value="Cancel" id="btnCancel" data-dismiss="modal" />
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script type="text/jscript">
+    //TODO - THIS needs to have a controller to load this (not just a view)
+    // - handle the click event as modal is popped and load this (MAKE a function that accepts an ID)
+    // - handle close down properly
+    function editApplication(appId) {
+        $('#divDialogContent').load('/shared/_ApplicationEdit');
+    }
+</script>

@@ -42,7 +42,7 @@ namespace ConnectWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                application.ApplicationId = System.Guid.NewGuid();
+                application.ApplicationUniqueId = System.Guid.NewGuid();
                 application.Deleted = false;
                 _context.Add(application);
                 await _context.SaveChangesAsync();

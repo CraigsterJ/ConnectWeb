@@ -3,15 +3,15 @@ using System.Collections.Generic;
 
 namespace ConnectWeb.Models.DataModels
 {
-    public partial class Role
+    public partial class Permission
     {
-        public Role()
+        public Permission()
         {
             RolePermissions = new HashSet<RolePermissions>();
         }
 
         public int Id { get; set; }
-        public Guid? RoleUniqueId { get; set; }
+        public Guid? PermissionUniqueId { get; set; }
         public int ApplicationId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }

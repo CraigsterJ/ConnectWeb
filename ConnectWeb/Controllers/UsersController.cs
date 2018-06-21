@@ -54,7 +54,7 @@ namespace ConnectWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                user.UserId = System.Guid.NewGuid();
+                user.UserUniqueId = System.Guid.NewGuid();
                 user.Deleted = false;
                 _context.Add(user);
                 await _context.SaveChangesAsync();

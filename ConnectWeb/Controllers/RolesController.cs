@@ -54,7 +54,7 @@ namespace ConnectWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                role.RoleId = System.Guid.NewGuid();
+                role.RoleUniqueId = System.Guid.NewGuid();
                 role.Deleted = false;
                 _context.Add(role);
                 await _context.SaveChangesAsync();
