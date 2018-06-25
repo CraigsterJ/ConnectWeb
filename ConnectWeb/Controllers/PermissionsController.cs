@@ -131,5 +131,52 @@ namespace ConnectWeb.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index), new { appId = Permission.ApplicationId });
         }
+        // GET: Permissions/AddToRoles/5
+        public ActionResult AddToRoles(int id)
+        {
+            //START HERE - get this to load RolesPermissions
+            // - set this up to do the sortable: https://jqueryui.com/sortable/#connect-lists
+            // - set up save - do it ON DROP immediately - setup async controller to do it - CALL via jquery ON DROP
+
+            if (id == 0)
+            {
+                return NotFound();
+            }
+
+            //Get all permissions and roles for application + all the currently selected permissions in roles
+            // - Place all results into container view model
+            // - use auto mapper now??
+            var rolesp = _context.RolePermissions.Select(s => s.PermissionId == id);
+            if (rolesp == null)
+            {
+                return NotFound();
+            }
+            return View(rolesp);
+        }
+
+        // POST: Permissions/AddToRoles
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddToRoles([Bind("Id,PermissionId,RoleId")] RolePermissions rolep)
+        {
+            try
+            {
+                //var PermissionFound = _context.Permission.FirstOrDefault(s => s.Id == Permission.Id);
+                //if (PermissionFound == null)
+                //{
+                //    return NotFound();
+                //}
+                //PermissionFound.Name = Permission.Name;
+                //PermissionFound.Description = Permission.Description;
+                //await _context.SaveChangesAsync();
+
+                //TODO - this should ONLY be an ASYNC call and therefore not need a redicrect in it's final version
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
     }
 }
