@@ -18,7 +18,7 @@
                         </select>
                         @foreach (var role in Model.PossibleRoles)
                         {
-                            <label for="role-@role.Id">role.Name</label>
+                            <label for="role-@role.Id">@role.Name</label>
                             <input type="radio" name="role" id="role-@role.Id" value="@role.Id" />
                         }
                         @*<label for="insurance">Insurance</label>
@@ -40,13 +40,13 @@
 <div>
     <a asp-action="Index" asp-route-appId="@Model.ApplicationId" asp-controller="Permissions">Back to Applications</a>
 </div>
-
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
+
+<script type="text/javascript">
     $(document).ready(function () {
         //TODO - START HERE NOT WORKING!!!
         // SETUP BOWER and install that way - if so remove the nuget and other references??
