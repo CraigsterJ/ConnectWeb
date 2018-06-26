@@ -1,0 +1,56 @@
+﻿@model ConnectWeb.Models.DataModels.PermissionsToRolesViewModel;
+@{
+    ViewData["Title"] = "Edit Permission";
+}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<h2>Select Roles for Permissions</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <fieldset>
+                    <legend>Permissions</legend>
+                    <div class="controlgroup">
+                        <select asp-for="CurrentPermissionId" asp-items="@(new SelectList(Model.PossiblePermissions,"Id","Name"))">
+                            <option>.. Select Permission ..</option>
+                        </select>
+                        @foreach (var role in Model.PossibleRoles)
+                        {
+                            <label for="role-@role.Id">role.Name</label>
+                            <input type="radio" name="role" id="role-@role.Id" value="@role.Id" />
+                        }
+                        @*<label for="insurance">Insurance</label>
+                            <input type="checkbox" name="insurance" id="insurance">
+                            <label for="horizontal-spinner" class="ui-controlgroup-label"># of cars</label>
+                            <input id="horizontal-spinner" class="ui-spinner-input">*@
+                        <button>Save Changes</button>
+                    </div>
+                </fieldset>
+                <br>
+                <div class="form-group">
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-action="Index" asp-route-appId="@Model.ApplicationId" asp-controller="Permissions">Back to Applications</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(document).ready(function () {
+        //TODO - START HERE NOT WORKING!!!
+        // SETUP BOWER and install that way - if so remove the nuget and other references??
+        //
+        $(".controlgroup").controlgroup();
+    });
+</script>

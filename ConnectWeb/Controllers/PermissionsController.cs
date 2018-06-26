@@ -132,26 +132,20 @@ namespace ConnectWeb.Controllers
             return RedirectToAction(nameof(Index), new { appId = Permission.ApplicationId });
         }
         // GET: Permissions/AddToRoles/5
-        public ActionResult AddToRoles(int id)
+        public ActionResult LinkRoles(int appId)
         {
-            //START HERE - get this to load RolesPermissions
-            // - set this up to do the sortable: https://jqueryui.com/sortable/#connect-lists
-            // - set up save - do it ON DROP immediately - setup async controller to do it - CALL via jquery ON DROP
-
-            if (id == 0)
+            if (appId == 0)
             {
                 return NotFound();
             }
 
             //Get all permissions and roles for application + all the currently selected permissions in roles
-            // - Place all results into container view model
-            // - use auto mapper now??
-            var rolesp = _context.RolePermissions.Select(s => s.PermissionId == id);
-            if (rolesp == null)
-            {
-                return NotFound();
-            }
-            return View(rolesp);
+            PermissionsToRolesViewModel permsRolesVM = new PermissionsToRolesViewModel();
+            permsRolesVM.ApplicationId = appId;
+            permsRolesVM.PossiblePermissions = _context.Permission.Where(s => s.ApplicationId == appId).ToList();
+            permsRolesVM.PossibleRoles = _context.Role.Where(s => s.ApplicationId == appId).ToList();
+            permsRolesVM.ExistingRolePermissions = _context.RolePermissions.Where(s => s.ApplicationId == appId).ToList();
+            return View(permsRolesVM);
         }
 
         // POST: Permissions/AddToRoles
