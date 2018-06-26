@@ -142,8 +142,8 @@ namespace ConnectWeb.Controllers
             //Get all permissions and roles for application + all the currently selected permissions in roles
             PermissionsToRolesViewModel permsRolesVM = new PermissionsToRolesViewModel();
             permsRolesVM.ApplicationId = appId;
-            permsRolesVM.PossiblePermissions = _context.Permission.Where(s => s.ApplicationId == appId).ToList();
-            permsRolesVM.PossibleRoles = _context.Role.Where(s => s.ApplicationId == appId).ToList();
+            permsRolesVM.PossiblePermissions = _context.Permission.Where(s => s.ApplicationId == appId && s.Deleted != true).ToList();
+            permsRolesVM.PossibleRoles = _context.Role.Where(s => s.ApplicationId == appId && s.Deleted != true).ToList();
             permsRolesVM.ExistingRolePermissions = _context.RolePermissions.Where(s => s.ApplicationId == appId).ToList();
             return View(permsRolesVM);
         }
@@ -151,25 +151,21 @@ namespace ConnectWeb.Controllers
         // POST: Permissions/AddToRoles
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddToRoles([Bind("Id,PermissionId,RoleId")] RolePermissions rolep)
+        public async Task<IActionResult> LinkRoles([Bind("ApplicationId,CurrentPermissionId,CurrentRoleIds")] PermissionsToRolesViewModel permsRolesvm)
         {
             try
             {
-                //var PermissionFound = _context.Permission.FirstOrDefault(s => s.Id == Permission.Id);
-                //if (PermissionFound == null)
-                //{
-                //    return NotFound();
-                //}
-                //PermissionFound.Name = Permission.Name;
-                //PermissionFound.Description = Permission.Description;
-                //await _context.SaveChangesAsync();
+                //TODO - should I wipe these out or figure out if the relationship exists then delete the ones not there? RUN It by Doug
+                // - NEEDs to be async call to SAVE 
+                // - ASYNC reader on DDL change to show which ones were selected already
+                // - REUSABLE pattern for thigns down the line
 
                 //TODO - this should ONLY be an ASYNC call and therefore not need a redicrect in it's final version
-                return RedirectToAction(nameof(Index));
+                return Ok("Saved successfully!");
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                return Ok(ex.Message);
             }
         }
     }

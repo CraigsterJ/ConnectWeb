@@ -1,8 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ConnectWeb.Models.DataModels
 {
+    [ModelMetadataTypeAttribute(typeof(PermissionsToRolesMetaDataType))]
     public class PermissionsToRolesViewModel
     {
         public int ApplicationId { get; set; }
