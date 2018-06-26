@@ -11,7 +11,6 @@
 <div class="row">
     <table class="table table-bordered table-striped">
         <tr>
-            @*<th>Id</th>*@
             <th>Name</th>
             <th>Description</th>
             <th></th>
@@ -20,26 +19,23 @@
         @foreach (var item in Model)
         {
             <tr>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.Id)
-                    </td>*@
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id" title="Edit Application"><b>@item.Name</b></a>
+                    <a asp-action="Edit" asp-route-id="@item.ApplicationId" title="Edit Application"><b>@item.Name</b></a>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td width="130">
-                    <a asp-action="Edit" asp-route-id="@item.Id" title="Edit Application"><i class="fa fa-pencil-square-o bot-fa-icon" aria-hidden="true"></i></a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" title="Delete Application"><i class="fa fa-trash bot-fa-icon" aria-hidden="true"></i></a>
+                    <a asp-action="Edit" asp-route-id="@item.ApplicationId" title="Edit Application"><i class="fa fa-pencil-square-o bot-fa-icon" aria-hidden="true"></i></a>
+                    <a asp-action="Delete" asp-route-id="@item.ApplicationId" title="Delete Application"><i class="fa fa-trash bot-fa-icon" aria-hidden="true"></i></a>
                     <ul class="nav navbar-nav bot-menu-popup">
                         <li class="dropdown bot-menu-popup-list">
                             <a href="#" class="dropdown-toggle bot-menu-popup-a" data-toggle="dropdown" title="Manage Application"><i class="fa fa-cog bot-fa-icon" aria-hidden="true"></i><b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a asp-action="Index" asp-route-appId="@item.Id" asp-controller="Users">Manage Users</a></li>
-                                <li><a asp-action="Index" asp-route-appId="@item.Id" asp-controller="Roles">Manage Roles</a></li>
-                                <li><a asp-action="Index" asp-route-appId="@item.Id" asp-controller="Permissions">Manage Permissions</a></li>
-                                <li><a asp-action="LinkRoles" asp-route-appId="@item.Id" asp-controller="Permissions">Link Roles to Permissions</a></li>
+                                <li><a asp-action="Index" asp-route-appId="@item.ApplicationId" asp-controller="Users">Manage Users</a></li>
+                                <li><a asp-action="Index" asp-route-appId="@item.ApplicationId" asp-controller="Roles">Manage Roles</a></li>
+                                <li><a asp-action="Index" asp-route-appId="@item.ApplicationId" asp-controller="Permissions">Manage Permissions</a></li>
+                                <li><a asp-action="LinkRoles" asp-route-appId="@item.ApplicationId" asp-controller="Permissions">Link Roles to Permissions</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -57,7 +53,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:white;">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h3 class="modal-title" style="height: 19px;margin-top: -5px;font-size: 16px;color:white;">Edit Application</h3>
+                @*<h3 class="modal-title" style="height: 19px;margin-top: -5px;font-size: 16px;color:white;">Edit Application</h3>*@
             </div>
             <div class="modal-body" style="max-height:342px;">
                 @{

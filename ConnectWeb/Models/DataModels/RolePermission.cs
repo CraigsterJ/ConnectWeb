@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ConnectWeb.Models.DataModels
 {
-    public partial class RolePermissions
+    public partial class RolePermission
     {
         public int Id { get; set; }
         public int ApplicationId { get; set; }

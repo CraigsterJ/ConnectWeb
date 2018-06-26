@@ -20,7 +20,7 @@ namespace ConnectWeb.Controllers
         // GET: Roles
         public ActionResult Index(int appId)
         {
-            var app = _context.Application.FirstOrDefault(a => a.Id == appId);
+            var app = _context.Application.FirstOrDefault(a => a.ApplicationId == appId);
             if (app != null)
             {
                 var roles = _context.Role.Where(s => s.ApplicationId == appId && s.Deleted == false);
@@ -54,7 +54,6 @@ namespace ConnectWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                role.RoleUniqueId = System.Guid.NewGuid();
                 role.Deleted = false;
                 _context.Add(role);
                 await _context.SaveChangesAsync();
@@ -70,7 +69,7 @@ namespace ConnectWeb.Controllers
             {
                 return NotFound();
             }
-            var app = _context.Role.FirstOrDefault(s => s.Id == id);
+            var app = _context.Role.FirstOrDefault(s => s.RoleId == id);
             if (app == null)
             {
                 return NotFound();
@@ -85,7 +84,7 @@ namespace ConnectWeb.Controllers
         {
             try
             {
-                var roleFound = _context.Role.FirstOrDefault(s => s.Id == role.Id);
+                var roleFound = _context.Role.FirstOrDefault(s => s.RoleId == role.RoleId);
                 if (roleFound == null)
                 {
                     return NotFound();
@@ -108,7 +107,7 @@ namespace ConnectWeb.Controllers
                 return NotFound();
             }
 
-            var role = _context.Role.SingleOrDefault(s => s.Id == id);
+            var role = _context.Role.SingleOrDefault(s => s.RoleId == id);
             if (role == null)
             {
                 return NotFound();
@@ -122,7 +121,7 @@ namespace ConnectWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var role = _context.Role.SingleOrDefault(s => s.Id == id);
+            var role = _context.Role.SingleOrDefault(s => s.RoleId == id);
             if (role == null)
             {
                 return NotFound();

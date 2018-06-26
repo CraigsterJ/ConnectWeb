@@ -20,7 +20,7 @@ namespace ConnectWeb.Controllers
         // GET: Permissions
         public ActionResult Index(int appId)
         {
-            var app = _context.Application.FirstOrDefault(a => a.Id == appId);
+            var app = _context.Application.FirstOrDefault(a => a.ApplicationId == appId);
             if (app != null)
             {
                 var Permissions = _context.Permission.Where(s => s.ApplicationId == appId && s.Deleted == false);
@@ -54,7 +54,6 @@ namespace ConnectWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                Permission.PermissionUniqueId = System.Guid.NewGuid();
                 Permission.Deleted = false;
                 _context.Add(Permission);
                 await _context.SaveChangesAsync();
@@ -70,7 +69,7 @@ namespace ConnectWeb.Controllers
             {
                 return NotFound();
             }
-            var app = _context.Permission.FirstOrDefault(s => s.Id == id);
+            var app = _context.Permission.FirstOrDefault(s => s.PermissionId == id);
             if (app == null)
             {
                 return NotFound();
@@ -81,19 +80,19 @@ namespace ConnectWeb.Controllers
         // POST: Permissions/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("Id,Name,Description")] Permission Permission)
+        public async Task<IActionResult> Edit([Bind("Id,Name,Description")] Permission permission)
         {
             try
             {
-                var PermissionFound = _context.Permission.FirstOrDefault(s => s.Id == Permission.Id);
-                if (PermissionFound == null)
+                var permissionFound = _context.Permission.FirstOrDefault(s => s.PermissionId == permission.PermissionId);
+                if (permissionFound == null)
                 {
                     return NotFound();
                 }
-                PermissionFound.Name = Permission.Name;
-                PermissionFound.Description = Permission.Description;
+                permissionFound.Name = permission.Name;
+                permissionFound.Description = permission.Description;
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index), new { appId = PermissionFound.ApplicationId });
+                return RedirectToAction(nameof(Index), new { appId = permissionFound.ApplicationId });
             }
             catch
             {
@@ -108,7 +107,7 @@ namespace ConnectWeb.Controllers
                 return NotFound();
             }
 
-            var Permission = _context.Permission.SingleOrDefault(s => s.Id == id);
+            var Permission = _context.Permission.SingleOrDefault(s => s.PermissionId == id);
             if (Permission == null)
             {
                 return NotFound();
@@ -122,7 +121,7 @@ namespace ConnectWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var Permission = _context.Permission.SingleOrDefault(s => s.Id == id);
+            var Permission = _context.Permission.SingleOrDefault(s => s.PermissionId == id);
             if (Permission == null)
             {
                 return NotFound();
@@ -144,7 +143,7 @@ namespace ConnectWeb.Controllers
             permsRolesVM.ApplicationId = appId;
             permsRolesVM.PossiblePermissions = _context.Permission.Where(s => s.ApplicationId == appId && s.Deleted != true).ToList();
             permsRolesVM.PossibleRoles = _context.Role.Where(s => s.ApplicationId == appId && s.Deleted != true).ToList();
-            permsRolesVM.ExistingRolePermissions = _context.RolePermissions.Where(s => s.ApplicationId == appId).ToList();
+            permsRolesVM.ExistingRolePermission = _context.RolePermission.Where(s => s.ApplicationId == appId).ToList();
             return View(permsRolesVM);
         }
 

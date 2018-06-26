@@ -19,8 +19,8 @@
                     <div class="col-lg-8">
                         @foreach (var role in Model.PossibleRoles)
                         {
-                            <label for="role-@role.Id">@role.Name</label>
-                            <input type="checkbox" name="CurrentRoleIds" class="check-box" id="role-@role.Id" value="@role.Id" />
+                            <label for="role-@role.RoleId">@role.Name</label>
+                            <input type="checkbox" name="CurrentRoleIds" class="check-box" id="role-@role.RoleId" value="@role.RoleId" />
                         }
                         <input type="submit" value="Save" class="btn btn-default" style="width:150px;margin-left:10px;" />
                     </div>

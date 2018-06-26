@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<ConnectWeb.Models.DataModels.Permission>
 @{
-    ViewData["Title"] = "Applications";
+    ViewData["Title"] = "Permissions";
 }
 <h2>Permissions for @ViewBag.ApplicationName</h2>
 
@@ -20,7 +20,7 @@
         {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Id)
+                @Html.DisplayFor(modelItem => item.PermissionId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
@@ -29,8 +29,8 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                <a asp-action="Edit" asp-controller="Permissions" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Delete" asp-controller="Permissions" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-controller="Permissions" asp-route-id="@item.PermissionId">Edit</a> |
+                <a asp-action="Delete" asp-controller="Permissions" asp-route-id="@item.PermissionId">Delete</a>
             </td>
         </tr>
         }

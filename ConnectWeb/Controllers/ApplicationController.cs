@@ -42,7 +42,6 @@ namespace ConnectWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                application.ApplicationUniqueId = System.Guid.NewGuid();
                 application.Deleted = false;
                 _context.Add(application);
                 await _context.SaveChangesAsync();
@@ -58,7 +57,7 @@ namespace ConnectWeb.Controllers
             {
                 return NotFound();
             }
-            var app = _context.Application.FirstOrDefault(s => s.Id == id);
+            var app = _context.Application.FirstOrDefault(s => s.ApplicationId == id);
             if (app == null)
             {
                 return NotFound();
@@ -73,7 +72,7 @@ namespace ConnectWeb.Controllers
         {
             try
             {
-                var app = _context.Application.FirstOrDefault(s => s.Id == application.Id);
+                var app = _context.Application.FirstOrDefault(s => s.ApplicationId == application.ApplicationId);
                 if (app == null)
                 {
                     return NotFound();
@@ -96,7 +95,7 @@ namespace ConnectWeb.Controllers
                 return NotFound();
             }
 
-            var app = _context.Application.SingleOrDefault(s => s.Id == id);
+            var app = _context.Application.SingleOrDefault(s => s.ApplicationId == id);
             if (app == null)
             {
                 return NotFound();
@@ -110,7 +109,7 @@ namespace ConnectWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var app = _context.Application.SingleOrDefault(s => s.Id == id);
+            var app = _context.Application.SingleOrDefault(s => s.ApplicationId == id);
             if (app == null)
             {
                 return NotFound();

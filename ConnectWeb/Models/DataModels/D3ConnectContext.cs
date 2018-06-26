@@ -18,15 +18,15 @@ namespace ConnectWeb.Models.DataModels
         public virtual DbSet<Application> Application { get; set; }
         public virtual DbSet<Permission> Permission { get; set; }
         public virtual DbSet<Role> Role { get; set; }
-        public virtual DbSet<RolePermissions> RolePermissions { get; set; }
+        public virtual DbSet<RolePermission> RolePermission { get; set; }
         public virtual DbSet<User> User { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=D3Connect;Trusted_Connection=True;");
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+ //               optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=D3Connect;Trusted_Connection=True;");
             }
         }
 
@@ -34,8 +34,6 @@ namespace ConnectWeb.Models.DataModels
         {
             modelBuilder.Entity<Application>(entity =>
             {
-                entity.Property(e => e.ApplicationUniqueId).HasDefaultValueSql("(newid())");
-
                 entity.Property(e => e.Deleted).HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.Description).HasMaxLength(250);
@@ -55,8 +53,6 @@ namespace ConnectWeb.Models.DataModels
                     .IsRequired()
                     .HasMaxLength(100);
 
-                entity.Property(e => e.PermissionUniqueId).HasDefaultValueSql("(newid())");
-
                 entity.HasOne(d => d.Application)
                     .WithMany(p => p.Permission)
                     .HasForeignKey(d => d.ApplicationId)
@@ -74,8 +70,6 @@ namespace ConnectWeb.Models.DataModels
                     .IsRequired()
                     .HasMaxLength(100);
 
-                entity.Property(e => e.RoleUniqueId).HasDefaultValueSql("(newid())");
-
                 entity.HasOne(d => d.Application)
                     .WithMany(p => p.Role)
                     .HasForeignKey(d => d.ApplicationId)
@@ -83,19 +77,19 @@ namespace ConnectWeb.Models.DataModels
                     .HasConstraintName("FK_Role_Application");
             });
 
-            modelBuilder.Entity<RolePermissions>(entity =>
+            modelBuilder.Entity<RolePermission>(entity =>
             {
                 entity.HasOne(d => d.Permission)
-                    .WithMany(p => p.RolePermissions)
+                    .WithMany(p => p.RolePermission)
                     .HasForeignKey(d => d.PermissionId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_RolePermissions_Permission");
+                    .HasConstraintName("FK_RolePermission_Permission");
 
                 entity.HasOne(d => d.Role)
-                    .WithMany(p => p.RolePermissions)
+                    .WithMany(p => p.RolePermission)
                     .HasForeignKey(d => d.RoleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_RolePermissions_Role");
+                    .HasConstraintName("FK_RolePermission_Role");
             });
 
             modelBuilder.Entity<User>(entity =>
@@ -107,8 +101,6 @@ namespace ConnectWeb.Models.DataModels
                 entity.Property(e => e.UserName)
                     .IsRequired()
                     .HasMaxLength(100);
-
-                entity.Property(e => e.UserUniqueId).HasDefaultValueSql("(newid())");
             });
         }
     }

@@ -20,7 +20,7 @@ namespace ConnectWeb.Controllers
         // GET: Users
         public ActionResult Index(int appId)
         {
-            var app = _context.Application.FirstOrDefault(a => a.Id == appId);
+            var app = _context.Application.FirstOrDefault(a => a.ApplicationId == appId);
             if (app != null)
             {
                 var Users = _context.User.Where(s => s.ApplicationId == appId && s.Deleted == false);
@@ -54,7 +54,6 @@ namespace ConnectWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                user.UserUniqueId = System.Guid.NewGuid();
                 user.Deleted = false;
                 _context.Add(user);
                 await _context.SaveChangesAsync();
@@ -70,7 +69,7 @@ namespace ConnectWeb.Controllers
             {
                 return NotFound();
             }
-            var app = _context.User.FirstOrDefault(s => s.Id == id);
+            var app = _context.User.FirstOrDefault(s => s.UserId == id);
             if (app == null)
             {
                 return NotFound();
@@ -85,7 +84,7 @@ namespace ConnectWeb.Controllers
         {
             try
             {
-                var userFound = _context.User.FirstOrDefault(s => s.Id == user.Id);
+                var userFound = _context.User.FirstOrDefault(s => s.UserId == user.UserId);
                 if (userFound == null)
                 {
                     return NotFound();
@@ -108,7 +107,7 @@ namespace ConnectWeb.Controllers
                 return NotFound();
             }
 
-            var user = _context.User.SingleOrDefault(s => s.Id == id);
+            var user = _context.User.SingleOrDefault(s => s.UserId == id);
             if (user == null)
             {
                 return NotFound();
@@ -122,7 +121,7 @@ namespace ConnectWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var user = _context.User.SingleOrDefault(s => s.Id == id);
+            var user = _context.User.SingleOrDefault(s => s.UserId == id);
             if (user == null)
             {
                 return NotFound();

@@ -14,12 +14,12 @@ namespace ConnectWeb.Models.DataModels
         public List<string> CurrentRoleIds { get; set; }
         public List<Permission> PossiblePermissions { get; set; }
         public List<Role> PossibleRoles { get; set; }
-        public List<RolePermissions> ExistingRolePermissions { get; set; }
+        public List<RolePermission> ExistingRolePermission { get; set; }
         public PermissionsToRolesViewModel()
         {
             PossiblePermissions = new List<Permission>();
             PossibleRoles = new List<Role>();
-            ExistingRolePermissions = new List<RolePermissions>();
+            ExistingRolePermission = new List<RolePermission>();
         }
     }
 }
